@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Reveal } from "../components/site/Reveal";
-import { Phone, Mail, MapPin, Sun, Loader2 } from "lucide-react";
+import { Phone, Mail, MapPin, Sun, Loader2, CheckCircle2 } from "lucide-react";
 import { PageHero } from "./about";
 
 export const Route = createFileRoute("/contact")({
@@ -37,6 +37,7 @@ const ENDPOINT =
 
 function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   return (
     <>
       <PageHero
@@ -69,6 +70,26 @@ function ContactPage() {
           </div>
 
           <Reveal delay={350}>
+            {submitted ? (
+              <div className="mt-12 max-w-2xl mx-auto bg-secondary rounded-2xl p-10 border border-border text-center">
+                <div className="mx-auto h-16 w-16 rounded-full amber-gradient grid place-items-center text-[var(--navy-deep)]">
+                  <CheckCircle2 size={32} />
+                </div>
+                <h3 className="mt-6 font-display text-2xl text-[var(--navy-deep)] font-semibold">
+                  Thank you for contacting us
+                </h3>
+                <p className="mt-2 text-base text-muted-foreground">
+                  Our team will soon reach you.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="mt-6 inline-flex items-center justify-center gap-2 amber-gradient text-[var(--navy-deep)] px-6 py-3 rounded-full text-sm font-semibold shadow-lg hover:-translate-y-0.5 transition-all"
+                >
+                  Submit Another Request
+                </button>
+              </div>
+            ) : (
             <form
               className="mt-12 max-w-2xl mx-auto bg-secondary rounded-2xl p-8 border border-border"
               onSubmit={async (e) => {
@@ -89,8 +110,8 @@ function ContactPage() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload),
                   });
-                  toast.success("Thank you! Your request has been submitted successfully.");
                   form.reset();
+                  setSubmitted(true);
                 } catch (err) {
                   toast.error("Network error. Please try again or call us directly.");
                 } finally {
@@ -129,6 +150,7 @@ function ContactPage() {
                 GST No: 21ABSCS6348D1Z7 · Switch To Solar. Save More. Live Smarter.
               </p>
             </form>
+            )}
           </Reveal>
         </div>
       </section>
