@@ -4,7 +4,7 @@ export function FloatingButtons() {
   const waMsg = encodeURIComponent(
     "Hi Shree Adi Shakti Solar, I'd like to know more about solar installation."
   );
-  const waUrl = `https://api.whatsapp.com/send?phone=919583390808&text=${waMsg}`;
+  const waUrl = `https://wa.me/919583390808?text=${waMsg}`;
 
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3">
@@ -12,6 +12,10 @@ export function FloatingButtons() {
         href={waUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={(event) => {
+          event.preventDefault();
+          window.open(waUrl, "_blank", "noopener,noreferrer");
+        }}
         className="h-14 w-14 rounded-full bg-[#25D366] text-white grid place-items-center shadow-xl hover:scale-110 transition-transform"
         aria-label="Chat on WhatsApp"
       >
