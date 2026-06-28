@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
+import logo from "../../assets/logo.png.asset.json";
 
 const navItems = [
   { to: "/about", label: "About" },
@@ -28,9 +29,11 @@ export function Header() {
     >
       <div className="container-x flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="h-10 w-10 rounded-full amber-gradient grid place-items-center text-[var(--navy-deep)] font-display font-bold text-lg shadow-md">
-            S
-          </div>
+          <img
+            src={logo.url}
+            alt="Shree Adi Shakti Solar logo"
+            className="h-11 w-11 rounded-full bg-white object-contain shadow-md ring-2 ring-white/20"
+          />
           <div className="leading-tight">
             <div className="font-display font-semibold text-white tracking-wide text-sm md:text-base">
               SHREE ADI SHAKTI

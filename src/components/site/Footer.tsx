@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, MapPin } from "lucide-react";
+import logo from "../../assets/logo.png.asset.json";
 
 export function Footer() {
   return (
@@ -7,9 +8,11 @@ export function Footer() {
       <div className="container-x grid md:grid-cols-3 gap-10">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-12 w-12 rounded-full amber-gradient grid place-items-center text-[var(--navy-deep)] font-display font-bold text-xl">
-              S
-            </div>
+            <img
+              src={logo.url}
+              alt="Shree Adi Shakti Solar logo"
+              className="h-12 w-12 rounded-full bg-white object-contain ring-2 ring-white/15"
+            />
             <div>
               <div className="font-display font-semibold text-white text-lg">SHREE ADI SHAKTI</div>
               <div className="text-xs text-[var(--amber-brand)] uppercase tracking-[0.15em]">Solar Pvt Ltd</div>
