@@ -71,12 +71,31 @@ function ContactPage() {
           <Reveal delay={350}>
             <form
               className="mt-12 max-w-2xl mx-auto bg-secondary rounded-2xl p-8 border border-border"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                const fd = new FormData(e.currentTarget);
-                const msg = `Hi, I'm ${fd.get("name")}. ${fd.get("message") ?? ""} (Phone: ${fd.get("phone")})`;
-                const waUrl = `https://wa.me/919583390808?text=${encodeURIComponent(msg)}`;
-                window.open(waUrl, "_blank", "noopener,noreferrer");
+                const form = e.currentTarget;
+                const fd = new FormData(form);
+                const payload = {
+                  name: String(fd.get("name") ?? ""),
+                  phone: String(fd.get("phone") ?? ""),
+                  email: String(fd.get("email") ?? ""),
+                  message: String(fd.get("message") ?? ""),
+                };
+                setSubmitting(true);
+                try {
+                  await fetch(ENDPOINT, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                  });
+                  toast.success("Thank you! Your request has been submitted successfully.");
+                  form.reset();
+                } catch (err) {
+                  toast.error("Network error. Please try again or call us directly.");
+                } finally {
+                  setSubmitting(false);
+                }
               }}
             >
               <h3 className="font-display text-2xl text-[var(--navy-deep)] font-semibold">
@@ -93,9 +112,18 @@ function ContactPage() {
               </div>
               <button
                 type="submit"
-                className="mt-6 w-full inline-flex items-center justify-center gap-2 amber-gradient text-[var(--navy-deep)] px-6 py-3.5 rounded-full text-sm font-semibold shadow-lg hover:-translate-y-0.5 transition-all"
+                disabled={submitting}
+                className="mt-6 w-full inline-flex items-center justify-center gap-2 amber-gradient text-[var(--navy-deep)] px-6 py-3.5 rounded-full text-sm font-semibold shadow-lg hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
-                <Sun size={16} /> Book Free Solar Consultation
+                {submitting ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" /> Submitting...
+                  </>
+                ) : (
+                  <>
+                    <Sun size={16} /> Book Free Solar Consultation
+                  </>
+                )}
               </button>
               <p className="mt-3 text-xs text-muted-foreground text-center">
                 GST No: 21ABSCS6348D1Z7 · Switch To Solar. Save More. Live Smarter.
