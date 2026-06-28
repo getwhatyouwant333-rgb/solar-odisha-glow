@@ -32,7 +32,11 @@ const cards = [
   },
 ];
 
+const ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbysv3_GNh-61eDXoI8bxaXot-8NlHHd6VhwGPP8JrmyTXFsqMHX3JBnVfoWIhezjXhXwA/exec";
+
 function ContactPage() {
+  const [submitting, setSubmitting] = useState(false);
   return (
     <>
       <PageHero
