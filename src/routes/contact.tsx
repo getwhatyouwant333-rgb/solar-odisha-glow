@@ -69,7 +69,8 @@ function ContactPage() {
                 e.preventDefault();
                 const fd = new FormData(e.currentTarget);
                 const msg = `Hi, I'm ${fd.get("name")}. ${fd.get("message") ?? ""} (Phone: ${fd.get("phone")})`;
-                window.location.href = `https://wa.me/919583390808?text=${encodeURIComponent(msg)}`;
+                const waUrl = `https://wa.me/919583390808?text=${encodeURIComponent(msg)}`;
+                window.open(waUrl, "_blank", "noopener,noreferrer");
               }}
             >
               <h3 className="font-display text-2xl text-[var(--navy-deep)] font-semibold">
