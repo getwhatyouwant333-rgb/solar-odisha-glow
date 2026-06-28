@@ -37,6 +37,7 @@ const ENDPOINT =
 
 function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   return (
     <>
       <PageHero
